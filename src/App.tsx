@@ -11,7 +11,7 @@ interface IProduct{
 const url = "http://localhost:3000/products";
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -42,6 +42,11 @@ function App() {
       },
       body: JSON.stringify(product)
     });
+
+    //3 - Dynamic Data Load
+    const addedProduct = await res.json();
+  
+    setProducts((prevState) => [...prevState, addedProduct]);
   }
 
 
