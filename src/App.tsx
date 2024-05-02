@@ -1,6 +1,6 @@
 
 import './App.css'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 interface IProduct{
   id: number;
@@ -27,8 +27,21 @@ function App() {
   }, []);
 
   //2 - adição de produtos
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
+    const product = {
+      name,
+      price
+    }
+
+    const res =  await fetch(url, {
+      method: "POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    });
   }
 
 
@@ -47,12 +60,12 @@ function App() {
         <form onSubmit={handleSubmit}>
           <label>
             Nome:
-            <input type="text" name="name" id="name" value={name} onChange={handleChange}/>
+            <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}/>
           </label>
 
           <label>
             Preço:
-            <input type="text" name="price" id="price" value={price} onChange={handleChange}/>
+            <input type="text" name="price" value={price} onChange={(e) => setPrice(e.target.value)}/>
           </label>
 
           <input type="submit" value="Criar" />
