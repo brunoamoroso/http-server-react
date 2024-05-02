@@ -47,6 +47,9 @@ function App() {
     const addedProduct = await res.json();
   
     setProducts((prevState) => [...prevState, addedProduct]);
+
+    setName('');
+    setPrice('');
   }
 
 
