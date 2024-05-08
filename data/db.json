@@ -19,6 +19,16 @@
       "id": "8637",
       "name": "Camiseta Básica",
       "price": "29.90"
+    },
+    {
+      "id": "269a",
+      "name": "mouse",
+      "price": "60"
+    },
+    {
+      "id": "c5a2",
+      "name": "teclado",
+      "price": "200"
     }
   ]
 }
