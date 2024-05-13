@@ -2,7 +2,6 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 .logo {
@@ -42,7 +41,11 @@
 }
 
 .add-product{
-  border-top: 1px solid #000;
+  margin-top: 3rem;
+}
+
+.add-product h2{
+  text-align: center;
 }
 
 form{
@@ -56,4 +59,19 @@ form input{
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+}
+
+.products_list li{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.products_list li .product_content {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
 }

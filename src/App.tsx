@@ -49,6 +49,10 @@ function App() {
     setPrice("");
   };
 
+  const handleDelete = async(productID: number) =>{
+    httpConfig(productID, "DELETE");
+  }
+
   return (
     <>
       <h1>Lista de Produtos</h1>
@@ -56,17 +60,24 @@ function App() {
       {error && <p>{error}</p>}
       {loading && <p>Carregando Dados</p>}
       {!error && (
-        <ul>
+        <ul className="products_list">
           {items &&
             items.map((product: IProduct) => (
               <li key={product.id}>
-                {product.name} - R$ {product.price}
+                <div className="product_content">
+                  <span className="product_name">{product.name}</span>
+                  <span className="product_price">R$ {product.price}</span>
+                </div>
+                <div className="product_action">
+                  <button onClick={() => {handleDelete(product.id)}}>Excluir</button>
+                </div>
               </li>
             ))}
         </ul>
       )}
 
       <div className="add-product">
+        <h2>Adicionar Produto</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Nome:

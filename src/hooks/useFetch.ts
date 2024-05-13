@@ -15,13 +15,16 @@ export const useFetch = (url: string) => {
   //7 - Handling Errors
   const [error, setError] = useState<string| null >(null);
 
+  //8 - Product to Delete
+  const [productDelete, setProductDelete] = useState<number | null>(null);
+
   //5 - Refatorando o POST
   const [config, setConfig] = useState<{
-    method: 'POST';
+    method: string;
     headers:{
       'Content-Type': 'application/json'
     };
-    body: BodyInit;
+    body?: BodyInit;
   }>();
   const [method, setMethod] = useState<string | null>(null);
   const [callFetch, setCallFetch] = useState(false);
@@ -35,9 +38,19 @@ export const useFetch = (url: string) => {
         },
         body: JSON.stringify(data),
       });
-
-      setMethod(method);
     }
+
+    if(method === "DELETE"){
+      setConfig({
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      setProductDelete(data as number);
+    }
+
+    setMethod(method);
   };
 
   useEffect(() => {
@@ -45,7 +58,7 @@ export const useFetch = (url: string) => {
       //6 - Loading
       setLoading(true);
       try {
-        const res = await fetch(url);
+      const res = await fetch(url);
 
       const json = await res.json();
 
@@ -71,10 +84,18 @@ export const useFetch = (url: string) => {
 
         setCallFetch(json);
       }
+      
+      if(method ===  "DELETE"){
+        const res = await fetch(`${url}/${productDelete}`, config);
+        const json = await res.json();
+
+        setCallFetch(json);
+      }
     };
 
+
     httpRequest();
-  }, [config, method, url]);
+  }, [config, method, url ,productDelete]);
 
   return { data, httpConfig, loading, error };
 };
